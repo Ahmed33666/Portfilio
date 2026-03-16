@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة التعليمية - EduHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --dark: #1a202c;
+            --light: #f7f9fc;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: var(--light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Search Bar */
+        .search-section {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border-radius: 50px;
+            padding: 0.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .search-bar button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .courses-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--border);
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-category {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .course-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .enroll-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .enroll-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h4 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateX(10px);
+        }
+
+        .stars {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2d3748;
+            padding-top: 2rem;
+            text-align: center;
+            color: #718096;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card {
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .course-card {
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .courses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Edu<span>Hub</span></div>
+            <ul class="nav-links">
+                <li><a href="#courses">الدورات</a></li>
+                <li><a href="#about">عننا</a></li>
+                <li><a href="#testimonials">التقييمات</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary">تسجيل دخول</button>
+                <button class="btn btn-primary">اشترك الآن</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>تعليم من الدرجة الأولى في متناول يدك</h1>
+            <p>تعلم من أفضل المدرسين وطور مهاراتك مع آلاف الدورات الاحترافية</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">استكشف الدورات</button>
+                <button class="btn btn-secondary">شاهد العرض التوضيحي</button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن دورة أو موضوع...">
+                <button>بحث</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="section-title">
+            <h2>لماذا اختار EduHub؟</h2>
+            <p>منصة تعليمية شاملة تجمع بين الجودة والتسعير المعقول</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3>معلمون متخصصون</h3>
+                <p>تعلم من أساتذة ذوي خبرة عملية وأكاديمية في مجالاتهم</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>التعلم في أي وقت</h3>
+                <p>متابعة الدروس على جهازك الشخصي متى شئت وأينما كنت</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>شهادات معترفة</h3>
+                <p>احصل على شهادات موثقة بعد إنهاء الدورة بنجاح</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>دعم مستمر</h3>
+                <p>فريق دعم متاح 24/7 للإجابة على جميع استفساراتك</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>محتوى محدث</h3>
+                <p>محتوى تعليمي حديث يواكب احدث التطورات في المجال</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>جماعة نشطة</h3>
+                <p>تواصل مع آلاف المتعلمين وشارك خبراتك معهم</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section" id="courses">
+        <div class="courses-container">
+            <div class="section-title">
+                <h2>أشهر الدورات</h2>
+                <p>اختر من مئات الدورات الاحترافية المتاحة</p>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active">الكل</button>
+                <button class="filter-btn">البرمجة</button>
+                <button class="filter-btn">التصميم</button>
+                <button class="filter-btn">اللغات</button>
+                <button class="filter-btn">الأعمال</button>
+            </div>
+
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">💻</div>
+                    <div class="course-content">
+                        <span class="course-category">برمجة</span>
+                        <h3>إتقان JavaScript</h3>
+                        <div class="course-meta">
+                            <span>⭐ 4.8 (2,450 تقييم)</span>
+                            <span>30 ساعة</span>
+                        </div>
+                        <div class="course-price">299 ريال</div>
+                        <button class="enroll-btn">اشترك الآن</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">🎨</div>
+                    <div class="course-content">
+                        <span class="course-category">التصميم</span>
+                        <h3>تصميم الواجهات UI/UX</h3>
+                        <div class="course-meta">
+                            <span>⭐ 4.9 (1,890 تقييم)</span>
+                            <span>25 ساعة</span>
+                        </div>
+                        <div class="course-price">349 ريال</div>
+                        <button class="enroll-btn">اشترك الآن</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">🌐</div>
+                    <div class="course-content">
+                        <span class="course-category">برمجة</span>
+                        <h3>تطوير تطبيقات الويب الحديثة</h3>
+                        <div class="course-meta">
+                            <span>⭐ 4.7 (3,120 تقييم)</span>
+                            <span>40 ساعة</span>
+                        </div>
+                        <div class="course-price">399 ريال</div>
+                        <button class="enroll-btn">اشترك الآن</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">🗣️</div>
+                    <div class="course-content">
+                        <span class="course-category">اللغات</span>
+                        <h3>الإنجليزية للعمل</h3>
+                        <div class="course-meta">
+                            <span>⭐ 4.6 (1,650 تقييم)</span>
+                            <span>35 ساعة</span>
+                        </div>
+                        <div class="course-price">249 ريال</div>
+                        <button class="enroll-btn">اشترك الآن</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">📊</div>
+                    <div class="course-content">
+                        <span class="course-category">الأعمال</span>
+                        <h3>تحليل البيانات والإحصائيات</h3>
+                        <div class="course-meta">
+                            <span>⭐ 4.8 (2,200 تقييم)</span>
+                            <span>28 ساعة</span>
+                        </div>
+                        <div class="course-price">329 ريال</div>
+                        <button class="enroll-btn">اشترك الآن</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">🎬</div>
+                    <div class="course-content">
+                        <span class="course-category">التصميم</span>
+                        <h3>المونتاج والمؤثرات البصرية</h3>
+                        <div class="course-meta">
+                            <span>⭐ 4.9 (1,540 تقييم)</span>
+                            <span>32 ساعة</span>
+                        </div>
+                        <div class="course-price">369 ريال</div>
+                        <button class="enroll-btn">اشترك الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h4>50+</h4>
+                <p>دورة احترافية</p>
+            </div>
+            <div class="stat-item">
+                <h4>15K+</h4>
+                <p>طالب نشط</p>
+            </div>
+            <div class="stat-item">
+                <h4>200+</h4>
+                <p>ساعة تعليمية</p>
+            </div>
+            <div class="stat-item">
+                <h4>98%</h4>
+                <p>رضا الطلاب</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>آراء طلابنا</h2>
+            <p>ماذا يقول الطلاب عن تجربتهم معنا</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                <p class="testimonial-text">"كانت دورة JavaScript رائعة جداً، التفاصيل والشرح بسيط جداً وسهل الفهم. الآن أستطيع أن أبني مشاريع كاملة بكل ثقة!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">أح</div>
+                    <div class="author-info">
+                        <h4>أحمد محمد</h4>
+                        <p>مطور ويب</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                <p class="testimonial-text">"أفضل استثمار قمت به! الدوره غيرت طريقة عملي وحسنت مهاراتي بشكل كبير. معلمة الدورة احترافية جداً وتجيب على جميع الأسئلة."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">فا</div>
+                    <div class="author-info">
+                        <h4>فاطمة أحمد</h4>
+                        <p>مصممة جرافيك</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                <p class="testimonial-text">"منصة EduHub الأفضل من حيث جودة المحتوى والسعر. نوصي بها لأي شخص يريد تطوير نفسه بشكل احترافي."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">خم</div>
+                    <div class="author-info">
+                        <h4>خالد محمود</h4>
+                        <p>رائد أعمال</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduHub</h3>
+                <p style="color: #cbd5e0; margin-bottom: 1rem;">منصة تعليمية متطورة تساعدك على تحقيق أحلامك المهنية</p>
+            </div>
+            <div class="footer-section">
+                <h3>الروابط السريعة</h3>
+                <ul>
+                    <li><a href="#">الدورات</a></li>
+                    <li><a href="#">حول المنصة</a></li>
+                    <li><a href="#">الأسعار</a></li>
+                    <li><a href="#">المدونة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>الدعم</h3>
+                <ul>
+                    <li><a href="#">مركز المساعدة</a></li>
+                    <li><a href="#">تواصل معنا</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">شروط الخدمة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 EduHub - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideUp 0.6s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.course-card, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+<div style="text-align: center; padding: 2rem 0;"><a href="../portfolio.html" style="display: inline-block; padding: .8rem 1.5rem; background: #0a0a0a; color: #fafafa; text-decoration: none; border-radius: 4px;">← Back to Portfolio</a></div>
+</body>
+</html>

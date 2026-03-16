@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayHub - منصة حجز الفنادق</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --luxury-gold: #d4af37;
+            --dark-navy: #1a2332;
+            --deep-teal: #0f5c6b;
+            --accent-coral: #ff6b6b;
+            --light-bg: #f8f9fa;
+            --text-light: #6c757d;
+            --border-color: #e9ecef;
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--light-bg);
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: white;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--luxury-gold);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-navy);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--luxury-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::before {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--dark-navy);
+            background: transparent;
+            color: var(--dark-navy);
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-navy);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--luxury-gold);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c99a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--deep-teal) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Search Box */
+        .search-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.8s ease;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-field label {
+            font-weight: 600;
+            color: var(--dark-navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .search-field input,
+        .search-field select {
+            padding: 0.9rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-field input:focus,
+        .search-field select:focus {
+            outline: none;
+            border-color: var(--luxury-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .search-box-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .search-box-footer button {
+            padding: 0.9rem 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Offers Section */
+        .offers {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--dark-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .offer-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-navy) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-image::before {
+            content: '🏨';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            opacity: 0.3;
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-coral);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .offer-content {
+            padding: 1.5rem;
+        }
+
+        .offer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--dark-navy);
+        }
+
+        .offer-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .offer-location {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .offer-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .offer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .offer-price {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .price-current {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--luxury-gold);
+            font-weight: 700;
+        }
+
+        .offer-footer button {
+            padding: 0.7rem 1.5rem;
+            background: var(--deep-teal);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .offer-footer button:hover {
+            background: var(--dark-navy);
+            transform: scale(1.05);
+        }
+
+        /* Categories */
+        .categories {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .categories-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            background: linear-gradient(135deg, var(--deep-teal), var(--dark-navy));
+            color: white;
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.2);
+        }
+
+        .category-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-navy);
+        }
+
+        .category-card:hover h3 {
+            color: white;
+        }
+
+        .category-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .category-card:hover p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Why Choose Us */
+        .why-us {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-navy);
+        }
+
+        .feature p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item-bg {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-teal), var(--dark-navy));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-bg {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: white;
+        }
+
+        .gallery-text h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-navy);
+            color: white;
+            padding: 4rem 2rem 1rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--luxury-gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-section a {
+            color: #b8b8b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--luxury-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a3844;
+            padding-top: 2rem;
+            text-align: center;
+            color: #b8b8b8;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Stay<span>Hub</span></div>
+            <ul class="nav-menu">
+                <li><a href="#offers">العروض</a></li>
+                <li><a href="#categories">الفنادق</a></li>
+                <li><a href="#gallery">الصور</a></li>
+                <li><a href="#contact">التواصل</a></li>
+            </ul>
+            <div class="header-actions">
+                <button class="btn btn-outline">دخول</button>
+                <button class="btn btn-primary">اشترك</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>عطلتك المثالية تبدأ من هنا</h1>
+                <p>احجز أجمل الفنادق بأفضل الأسعار واستمتع بتجربة لا تنسى</p>
+            </div>
+
+            <div class="search-box">
+                <div class="search-grid">
+                    <div class="search-field">
+                        <label>أين تريد الذهاب؟</label>
+                        <input type="text" placeholder="أدخل المدينة أو الفندق...">
+                    </div>
+                    <div class="search-field">
+                        <label>تاريخ الوصول</label>
+                        <input type="date">
+                    </div>
+                    <div class="search-field">
+                        <label>تاريخ المغادرة</label>
+                        <input type="date">
+                    </div>
+                    <div class="search-field">
+                        <label>عدد الضيوف</label>
+                        <select>
+                            <option>1 ضيف</option>
+                            <option>2 ضيف</option>
+                            <option>3 ضيوف</option>
+                            <option>4 ضيوف</option>
+                            <option>5+ ضيوف</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-box-footer">
+                    <button class="btn btn-primary">بحث</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers" id="offers">
+        <div class="section-header">
+            <h2>أفضل العروض الحالية</h2>
+            <p>استمتع بخصومات وعروض حصرية على أفخم الفنادق</p>
+        </div>
+
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="offer-image">
+                    <span class="offer-badge">خصم 40%</span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-header">
+                        <h3>فندق الأرز الفاخر</h3>
+                    </div>
+                    <div class="offer-rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span>(2,450 تقييم)</span>
+                    </div>
+                    <p class="offer-location">📍 الرياض - الحي الدبلوماسي</p>
+                    <div class="offer-features">
+                        <span>🏊 مسبح</span>
+                        <span>🍽️ مطعم</span>
+                        <span>🏋️ جيم</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="offer-price">
+                            <span class="price-original">800 ريال</span>
+                            <span class="price-current">480 ريال</span>
+                        </div>
+                        <button>احجز الآن</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-image">
+                    <span class="offer-badge">خصم 35%</span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-header">
+                        <h3>منتجع الساحل الذهبي</h3>
+                    </div>
+                    <div class="offer-rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span>(1,820 تقييم)</span>
+                    </div>
+                    <p class="offer-location">📍 جدة - الكورنيش</p>
+                    <div class="offer-features">
+                        <span>🏖️ شاطئ</span>
+                        <span>🍽️ مطعم</span>
+                        <span>💆 سبا</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="offer-price">
+                            <span class="price-original">950 ريال</span>
+                            <span class="price-current">617 ريال</span>
+                        </div>
+                        <button>احجز الآن</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-image">
+                    <span class="offer-badge">خصم 30%</span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-header">
+                        <h3>فندق النخيل الملكي</h3>
+                    </div>
+                    <div class="offer-rating">
+                        <span>⭐⭐⭐⭐</span>
+                        <span>(1,650 تقييم)</span>
+                    </div>
+                    <p class="offer-location">📍 الدمام - الخليج</p>
+                    <div class="offer-features">
+                        <span>🏨 فاخر</span>
+                        <span>🍽️ مطعم</span>
+                        <span>🚗 موقف</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="offer-price">
+                            <span class="price-original">700 ريال</span>
+                            <span class="price-current">490 ريال</span>
+                        </div>
+                        <button>احجز الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="categories-container">
+            <div class="section-header">
+                <h2>الفنادق حسب النوع</h2>
+                <p>اختر الفندق المناسب لاحتياجاتك</p>
+            </div>
+
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">👑</div>
+                    <h3>فنادق فاخرة</h3>
+                    <p>تجربة فاخرة لا تنسى مع أفضل الخدمات</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏖️</div>
+                    <h3>منتجعات شاطئية</h3>
+                    <p>استمتع برمال ذهبية وبحر أزرق هادئ</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏔️</div>
+                    <h3>فنادق الجبال</h3>
+                    <p>طبيعة ساحرة وهدوء شامل في الجبال</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🌃</div>
+                    <h3>فنادق المدينة</h3>
+                    <p>بأسعار معقولة وخدمات متميزة بقلب المدينة</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏘️</div>
+                    <h3>منتجعات صحراوية</h3>
+                    <p>تجربة فريدة في قلب الصحراء الذهبية</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🌿</div>
+                    <h3>منتجعات صحية</h3>
+                    <p>الاسترخاء والعافية وسط الطبيعة الخضراء</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="section-header">
+            <h2>لماذا StayHub؟</h2>
+            <p>أسباب تجعلك تختارنا دائماً</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <h3>أفضل الأسعار</h3>
+                <p>نضمن لك أفضل سعر مع خصومات وعروض حصرية طوال السنة</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✅</div>
+                <h3>حجز آمن</h3>
+                <p>عملية حجز آمنة وسهلة مع حماية كاملة لبياناتك</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🏨</div>
+                <h3>خيارات متنوعة</h3>
+                <p>آلاف الفنادق والمنتجعات تحت سقف واحد</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>تطبيق محمول</h3>
+                <p>احجز من أي مكان بسهولة عبر تطبيقنا الموثوق</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h3>دعم 24/7</h3>
+                <p>فريق دعم متاح دائماً للإجابة على استفساراتك</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⭐</div>
+                <h3>تقييمات حقيقية</h3>
+                <p>تقييمات صادقة من زوار حقيقيين يساعدك في الاختيار</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="gallery-container">
+            <div class="section-header">
+                <h2>معرض الصور</h2>
+                <p>استكشف جمال الفنادق والمنتجعات</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-item-bg">🏨</div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>غرفة فاخرة</h4>
+                            <p>مع إطلالة ساحرة</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-bg">🍽️</div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>مطعم عالمي</h4>
+                            <p>وجبات لذيذة</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-bg">🏊</div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>مسبح ضخم</h4>
+                            <p>للاستجمام والمرح</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-bg">💆</div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>منتجع صحي</h4>
+                            <p>للاسترخاء التام</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-bg">🌅</div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>إطلالات شاطئية</h4>
+                            <p>منظر طبيعي رائع</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-bg">🎉</div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h4>قاعات احتفالات</h4>
+                            <p>لأحداثك المميزة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>StayHub</h3>
+                <p style="color: #b8b8b8; line-height: 1.8;">منصة حجز الفنادق الأولى في الوطن العربي، نوفر لك أفضل الفنادق بأرخص الأسعار</p>
+            </div>
+            <div class="footer-section">
+                <h3>الشركة</h3>
+                <ul>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">الأخبار</a></li>
+                    <li><a href="#">الوظائف</a></li>
+                    <li><a href="#">المدونة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>الدعم</h3>
+                <ul>
+                    <li><a href="#">الأسئلة الشائعة</a></li>
+                    <li><a href="#">تواصل معنا</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">شروط الخدمة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 StayHub - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add click handlers to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.textContent.includes('احجز') || this.textContent.includes('بحث')) {
+                    alert('شكراً! سيتم معالجة طلبك قريباً');
+                }
+            });
+        });
+    </script>
+<div style="text-align: center; padding: 2rem 0;"><a href="../portfolio.html" style="display: inline-block; padding: .8rem 1.5rem; background: #0a0a0a; color: #fafafa; text-decoration: none; border-radius: 4px;">← Back to Portfolio</a></div>
+</body>
+</html>
